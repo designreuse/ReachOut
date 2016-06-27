@@ -1,0 +1,21 @@
+<div class="dropdown profile-element" dropdown >
+    <img alt="image"  class="img-circle"  src="img/no_pic.jpg"/>
+    <a class="dropdown-toggle" dropdown-toggle href>
+        <span class="clear" >
+            <span class="block m-t-xs">
+                </span>&nbsp;<strong class="font-bold">{{account.firstName}} {{account.lastName}}</strong><b class="caret"></b>
+         </span>
+    </a>
+
+    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+        <li><a ui-sref="index.settings"><span class="glyphicon glyphicon-wrench"></span>
+            &nbsp;Profile Settings</a></li>
+        <li><a ui-sref="index.password"><span class="glyphicon glyphicon-lock"></span>
+            &nbsp;Change Password</a></li>
+        <li><a ui-sref="index.sessions"><span class="glyphicon glyphicon-cloud"></span>
+            &nbsp;Active Sessions</a></li>
+        <li class="divider"></li>
+        <li><a ui-sref="logout"><span class="glyphicon glyphicon-log-out"></span>
+            &nbsp;Log out</a></li>
+    </ul>
+</div>

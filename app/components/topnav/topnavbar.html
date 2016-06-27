@@ -1,0 +1,61 @@
+<nav class="navbar navbar-default navbar-fixed-top {{classes}}" role="navigation">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Brand</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input  class="form-control" type="text"/>
+            </div>
+            <button class="btn btn-default" type="submit">
+                Search
+            </button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-show="isAdmin()">
+                <a ui-sref="admin.docs.intro">{{account.firstName}}</a>
+            </li>
+            <li ng-show="isSuperUser()">
+                <a ui-sref="superuser">Account Admin</a>
+            </li>
+            <li class="dropdown nav-item nav-end" >
+                <a class="dropdown-toggle" data-toggle="dropdown">Theme
+                    <strong class="caret"></strong>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a ng-click="changeTheme('default')" data-theme="default" class="theme-link">Default</a></li>
+                    <li><a ng-click="changeTheme('cerulean')" data-theme="cerulean" class="theme-link">Cerulean</a></li>
+                    <li><a ng-click="changeTheme('cosmo')" data-theme="cosmo" class="theme-link">Cosmo</a></li>
+                    <li><a ng-click="changeTheme('cyborg')" data-theme="cyborg" class="theme-link">Cyborg</a></li>
+                    <li><a ng-click="changeTheme('darkly')" data-theme="darkly" class="theme-link">Darkly</a></li>
+                    <li><a ng-click="changeTheme('flatly')" data-theme="flatly" class="theme-link">Flatly</a></li>
+                    <li><a ng-click="changeTheme('journal')" data-theme="journal" class="theme-link">Journal</a></li>
+                    <li><a ng-click="changeTheme('lumen')" data-theme="lumen" class="theme-link">Lumen</a></li>
+                    <li><a ng-click="changeTheme('paper')" data-theme="paper" class="theme-link">Paper</a></li>
+                    <li><a ng-click="changeTheme('readable')" data-theme="readable" class="theme-link">Readable</a></li>
+                    <li><a ng-click="changeTheme('sandstone')" data-theme="sandstone" class="theme-link">Sandstone</a></li>
+                    <li><a ng-click="changeTheme('simplex')" data-theme="simplex" class="theme-link">Simplex</a></li>
+                    <li><a ng-click="changeTheme('slate')" data-theme="slate" class="theme-link">Slate</a></li>
+                    <li><a ng-click="changeTheme('spacelab')" data-theme="spacelab" class="theme-link">Spacelab</a></li>
+                    <li><a ng-click="changeTheme('superhero')" data-theme="superhero" class="theme-link">Super Hero</a></li>
+                    <li><a ng-click="changeTheme('united')" data-theme="united" class="theme-link">United</a></li>
+                    <li><a ng-click="changeTheme('yeti')" data-theme="yeti" class="theme-link">Yeti</a></li>
+                </ul>
+            </li>
+
+            <li class="logout">
+                <a ui-sref="logout">
+                    <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

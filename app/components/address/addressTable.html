@@ -1,0 +1,33 @@
+<div class="row">
+
+    <div class="col-lg-6 col-md-4 col-sm-12">
+        <div class="row panel" ng-click="get(item.id)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
+            <div class="col-lg-4">{{item.id}}</div>
+            <div class="col-lg-4">{{item.city}}</div>
+            <div class="col-lg-4">{{item.state}}</div>
+            <div class="col-lg-4">{{item.zip}}</div>
+            <div class="col-lg-4">{{item.countryCode}}</div>
+            <div class="col-lg-4">{{item.address}}</div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-8 col-sm-0">
+        <div class="row">
+    <div class="col-lg-12">id : {{modelData.id}}</div>
+        </div>
+        <div class="row">
+    <div class="col-lg-12">city : {{modelData.city}}</div>
+        </div>
+        <div class="row">
+    <div class="col-lg-12">state : {{modelData.state}}</div>
+        </div>
+        <div class="row">
+    <div class="col-lg-12">zip : {{modelData.zip}}</div>
+        </div>
+        <div class="row">
+    <div class="col-lg-12">countryCode : {{modelData.countryCode}}</div>
+        </div>
+        <div class="row">
+    <div class="col-lg-12">address : {{modelData.address}}</div>
+        </div>
+    </div>
+</div>

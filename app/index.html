@@ -1,0 +1,142 @@
+<!--
+* Catwalk - Model Builder
+* Copyright 2015 Bluntsoftware.com
+* Version 2.1
+*
+-->
+
+<!DOCTYPE html>
+<html ng-app="catwalk">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+
+    <!-- Google Open Sans -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- build:css({.tmp,app}) styles/vendor.css -->
+    <!-- bower:css --
+    <!-- Font awesome -->
+    <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="bower_components/prism/themes/prism.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Main Inspinia CSS files -->
+    <link href="styles/animate.css" rel="stylesheet">
+    <!-- endbower -->
+    <!-- endbuild -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+
+    <!-- build:css({.tmp,app}) styles/style.css -->
+    <link href="styles/landingpage.css" rel="stylesheet">
+    <link href="styles/layout.css" rel="stylesheet">
+    <link href="styles/app.css" rel="stylesheet">
+    <!-- endbuild -->
+
+
+
+</head>
+
+<!-- ControllerAs syntax -->
+<!-- Main controller with serveral data used in Inspinia theme on diferent view -->
+<body ng-controller="MainCtrl as main">
+
+<!-- Main view  -->
+<div  ui-view></div>
+
+
+<!-- build:js({.tmp,app}) scripts/vendor.js -->
+
+<!-- jQuery and Bootstrap -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- MetsiMenu -->
+<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- SlimScroll -->
+<script src="bower_components/slimScroll/jquery.slimscroll.min.js"></script>
+
+<!-- Peace JS -->
+<script src="bower_components/PACE/pace.min.js"></script>
+<!-- Prism JS -->
+<script src="bower_components/prism/prism.js"></script>
+<!-- Angular scripts-->
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="bower_components/trNgGrid/release/trNgGrid.min.js"></script>
+
+<!-- Angular Dependiences -->
+<!--                      -->
+<!--                      -->
+<!--                      -->
+
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<!-- Custom and plugin javascript -->
+<script src="scripts/system/inspinia.js"></script>
+
+<!-- Anglar App Script -->
+<script src="app.js"></script>
+
+<!-- Security -->
+<script src="scripts/system/security/http-auth-interceptor.js"></script>
+<script src="scripts/system/security/security_services.js"></script>
+<script src="scripts/system/security/security_controllers.js"></script>
+<script src="scripts/system/security/security_config.js"></script>
+<!-- Config -->
+<script src="components/layout/layout.js"></script>
+<script src="scripts/system/directives.js"></script>
+<script src="components/home/home.js"></script>
+<script src="components/dashboard/dashboard.js"></script>
+<!-- Begin Admin -->
+<script src="components/admin/layout/layout.js"></script>
+<script src="components/admin/docs/docs.js"></script>
+<script src="components/admin/users/users.js"></script>
+<!-- Begin Services Controllers And Routers -->
+<script src="support/reachout_base_config.js"></script>
+<script src="support/reachout_base_service.js"></script>
+<script src="services/contact/contact.js"></script>
+<script src="services/address/address.js"></script>
+<script src="services/company/company.js"></script>
+<script src="services/contactphone/contactphone.js"></script>
+<script src="services/contactemail/contactemail.js"></script>
+<script src="services/contactinfo/contactinfo.js"></script>
+<script src="services/contactweb/contactweb.js"></script>
+<script src="services/task/task.js"></script>
+<script src="support/user_manager_base_service.js"></script>
+<script src="services/applicationAuthority/applicationAuthority.js"></script>
+<script src="services/applicationPersistentToken/applicationPersistentToken.js"></script>
+<script src="services/applicationUser/applicationUser.js"></script>
+<script src="services/applicationMailServer/applicationMailServer.js"></script>
+<script src="services/applicationSubscriptionService/applicationSubscriptionService.js"></script>
+<script src="services/applicationUserAuthority/applicationUserAuthority.js"></script>
+<script src="services/services.js"></script>
+<script src="components/contact/contact.js"></script>
+<script src="components/address/address.js"></script>
+<script src="components/company/company.js"></script>
+<script src="components/contactphone/contactphone.js"></script>
+<script src="components/contactemail/contactemail.js"></script>
+<script src="components/contactinfo/contactinfo.js"></script>
+<script src="components/contactweb/contactweb.js"></script>
+<script src="components/task/task.js"></script>
+<!-- End Services Controllers And Routers -->
+
+<!-- endbuild -->
+
+</body>
+</html>
