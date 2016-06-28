@@ -24,7 +24,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.*;
-                                                            
+                                                        
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Table(name = "\"Contact\"")
@@ -33,15 +33,14 @@ public class Contact implements CustomDomain<Contact> {
     private static final Map< Serializable, Integer > SAVED_HASHES = Collections.synchronizedMap(new WeakHashMap< Serializable, Integer >());
     private volatile Integer hashCode;
     private Integer id = null;
-    private String owner;
+    private String status;
     private String firstName;
     private String lastName;
     private String photoUrl;
     private String jobTitle;
-    private String status;
+    private String owner;
     private Date createdAt;
     private Date modifiedAt;
-    private Address address;
     private Company company;
     private Contactinfo contactInfo;
     private String companyName;
@@ -63,12 +62,12 @@ public class Contact implements CustomDomain<Contact> {
         this.id = id;
     }
 
-    @Column(name = "\"owner\"", length = 255)
-    public String getOwner() {
-        return owner;
+    @Column(name = "\"status\"", length = 255)
+    public String getStatus() {
+        return status;
     }
-    public void setOwner(String owner){
-        this.owner = owner;
+    public void setStatus(String status){
+        this.status = status;
     }
 
     @Column(name = "\"firstName\"", length = 255)
@@ -103,12 +102,12 @@ public class Contact implements CustomDomain<Contact> {
         this.jobTitle = jobTitle;
     }
 
-    @Column(name = "\"status\"", length = 255)
-    public String getStatus() {
-        return status;
+    @Column(name = "\"owner\"", length = 255)
+    public String getOwner() {
+        return owner;
     }
-    public void setStatus(String status){
-        this.status = status;
+    public void setOwner(String owner){
+        this.owner = owner;
     }
 
     @JsonSerialize(using = com.genx.framework.jpa.serializers.CustomTimestampSerializer.class, include=JsonSerialize.Inclusion.NON_NULL)
@@ -127,16 +126,6 @@ public class Contact implements CustomDomain<Contact> {
     }
     public void setModifiedAt(Date modifiedAt){
         this.modifiedAt = modifiedAt;
-    }
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    @JoinColumn(name = "\"address\"", nullable = true )
-    public Address getAddress() {
-        return address;
-    }
-    public void setAddress(Address address){
-        this.address = address;
     }
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

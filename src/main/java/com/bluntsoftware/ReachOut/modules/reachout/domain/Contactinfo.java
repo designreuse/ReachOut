@@ -24,7 +24,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.*;
-            
+                    
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Table(name = "\"ContactInfo\"")
@@ -34,6 +34,8 @@ public class Contactinfo implements CustomDomain<Contactinfo> {
     private volatile Integer hashCode;
     private Integer id = null;
     private String owner;
+    private Address shipping;
+    private Address billing;
 
     public Contactinfo() { }
 
@@ -57,6 +59,26 @@ public class Contactinfo implements CustomDomain<Contactinfo> {
     }
     public void setOwner(String owner){
         this.owner = owner;
+    }
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JoinColumn(name = "\"shipping\"", nullable = true )
+    public Address getShipping() {
+        return shipping;
+    }
+    public void setShipping(Address shipping){
+        this.shipping = shipping;
+    }
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JoinColumn(name = "\"billing\"", nullable = true )
+    public Address getBilling() {
+        return billing;
+    }
+    public void setBilling(Address billing){
+        this.billing = billing;
     }
 
     @Transient

@@ -24,7 +24,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.*;
-                                
+                            
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Table(name = "\"Task\"")
@@ -38,7 +38,6 @@ public class Task implements CustomDomain<Task> {
     private Contact contact;
     private String owner;
     private String status;
-    private Date dueDate;
 
     public Task() { }
 
@@ -97,15 +96,6 @@ public class Task implements CustomDomain<Task> {
     }
     public void setStatus(String status){
         this.status = status;
-    }
-
-    @JsonSerialize(using = com.genx.framework.jpa.serializers.CustomTimestampSerializer.class, include=JsonSerialize.Inclusion.NON_NULL)
-    @Column(name = "\"dueDate\"")
-    public Date getDueDate() {
-        return dueDate;
-    }
-    public void setDueDate(Date dueDate){
-        this.dueDate = dueDate;
     }
 
     @Transient
