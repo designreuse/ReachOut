@@ -24,6 +24,19 @@
     border-radius: 0;
     box-shadow: none;
 }*/
+
+@media (min-width: 968px) {
+    [class*='col-'].rem-right-pad {
+        padding-right:0;
+    }
+    [class*='col-'].rem-left-pad {
+        padding-left:0;
+    }
+}
+
+
+
+
 /* start Password strength bar style */
 ul#strength {
     display:inline;

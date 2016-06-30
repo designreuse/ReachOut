@@ -1,11 +1,21 @@
 <div class="row">
     <div class="col-sm-7">
         <h3>Contacts</h3>
-        <input type="text" ng-model="asyncSelected" uib-typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
-        <i ng-show="loadingLocations"  class="glyphicon glyphicon-refresh"></i>
-        <div ng-show="noResults">
-            <i class="glyphicon glyphicon-remove"></i> No Results Found
-        </div>
+
+        <form ng-submit="search()" >
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button ng-click="search()" class="active btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+                <input type="text" ng-model="srchterm" class="form-control" placeholder="Search " name="srchterm" id="srchterm">
+
+                <div class="input-group-btn">
+                    <button class="btn btn-success " ui-sref="reachout.contactForm">
+                        Add Contact
+                    </button>
+                </div>
+            </div>
+        </form>
         <div class="panel panel-default">
             <table class="table table-hover table-striped">
                 <tr>
@@ -14,7 +24,7 @@
                     <th></th>
                 </tr>
                 <tr class="active" ng-dblclick="update(item.id)" ng-click="get(item.id)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
-                    <td>{{item.firstName}} {{item.lastName}}</td>
+                    <td>{{item.firstName}} {{item.lastName}} {{item.company.name}}</td>
                     <td>{{item.jobTitle}}</td>
                     <td><i class="fa fa-remove" ng-click="removeUser(item.id)"></i></td>
                 </tr>
@@ -23,37 +33,48 @@
     </div>
     <div class="col-sm-5">
         <br>
-        <br>
-        <br>
+
+
         <div class="row" ng-show="modelData">
 
             <div class="col-sm-12">
+                <br>
+
+
                 <div class="media">
                     <div class="media-left">
                         <a  href="#">
-                            <img style="width:125px" alt="Alt Image" class="media-object img-thumbnail"   src="img/no_pic.jpg">
+
+                            <img ng-click="update(modelData.id)" style="width:125px" alt="Alt Image" class="media-object img-thumbnail"   src="img/no_pic.jpg">
                         </a>
                         <br>
                         <ul style="padding-left:15px" class="list-inline social-icon">
-                            <li><a href="#"><i class="fa fa-lg fa-twitter"></i></a>
+                            <li><a href="#"><i class="fa fa-2x fa-twitter"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa  fa-lg fa-facebook"></i></a>
+                            <li><a href="#"><i class="fa  fa-2x fa-facebook"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa  fa-lg fa-linkedin"></i></a>
+                            <li><a href="#"><i class="fa  fa-2x fa-linkedin"></i></a>
                             </li>
                         </ul>
+
+
+
+
                     </div>
                     <div class="media-body">
+
                         <address>
                             <h3><span class="navy">{{modelData.firstName}} {{modelData.lastName}}</span></h3>
                             <h4><span class="navy">{{modelData.company.name}}</span></h4>
                             <h5><span class="navy">{{modelData.jobTitle}}</span></h5>
                             {{modelData.company.contactInfo.shipping.address}}<br/>
                             {{modelData.company.contactInfo.shipping.city}} , {{modelData.company.contactInfo.shipping.state}} {{modelData.company.contactInfo.shipping.zip}}<br/>
-                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                            <abbr title="Phone">P:</abbr> {{phones[0].phone}}
                         </address>
+
                     </div>
                 </div>
+
             </div>
              <div ng-hide="true">
 
@@ -69,6 +90,7 @@
                  <div class="col-sm-12">contactInfo :
                      <ng-Prism class='language-javascript'>{{modelData.contactInfo | json}}</ng-Prism>
                  </div>
+
              </div>
 
             </div>

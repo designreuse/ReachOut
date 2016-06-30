@@ -2,9 +2,8 @@ package com.bluntsoftware.ReachOut.modules.reachout.rest;
 
 
 
-import com.bluntsoftware.ReachOut.modules.reachout.domain.Address;
+import com.bluntsoftware.ReachOut.modules.reachout.domain.*;
 import com.genx.framework.jpa.repository.GenericRepository;
-import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactinfo;
 import com.bluntsoftware.ReachOut.modules.reachout.repository.ContactinfoRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller("reachoutContactinfoService")
@@ -26,7 +26,12 @@ public class ContactinfoService extends CustomService<Contactinfo,Integer, Conta
 
     @Autowired
     AddressService addressService;
-
+    @Autowired
+    ContactphoneService contactphoneService;
+    @Autowired
+    ContactemailService contactemailService;
+    @Autowired
+    ContactwebService contactwebService;
     @Override
     public Contactinfo saveUpdate(HttpServletRequest request, @RequestBody Map<String, Object> object) throws Exception {
 
@@ -40,6 +45,27 @@ public class ContactinfoService extends CustomService<Contactinfo,Integer, Conta
             Map<String, Object> shipping = (Map<String, Object>)object.get("billing");
             Address address =  addressService.saveUpdate(null,shipping);
             contactInfo.setBilling(address);
+        }
+        if(object.containsKey("phones")){
+            List<Map<String, Object>> phones = (List<Map<String, Object>>)object.get("phones");
+            for(Map<String, Object> phone:phones){
+               Contactphone cphone =  contactphoneService.saveUpdate(null,phone);
+                cphone.setContactInfo(contactInfo);
+            }
+        }
+        if(object.containsKey("emails")){
+            List<Map<String, Object>> emails = (List<Map<String, Object>>)object.get("emails");
+            for(Map<String, Object> email:emails){
+                Contactemail cemail =  contactemailService.saveUpdate(null,email);
+                cemail.setContactInfo(contactInfo);
+            }
+        }
+        if(object.containsKey("urls")){
+            List<Map<String, Object>> urls = (List<Map<String, Object>>)object.get("urls");
+            for(Map<String, Object> url:urls){
+                Contactweb cweb =  contactwebService.saveUpdate(null,url);
+                cweb.setContactInfo(contactInfo);
+            }
         }
         return contactInfo;
 
