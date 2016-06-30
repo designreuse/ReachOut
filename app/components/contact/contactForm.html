@@ -6,51 +6,199 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="back()">&times;</button>
         <h4 class="modal-title" id="myDeviceLabel">Create or edit a Contact</h4>
+
+            <button ng-disabled="form.$invalid" class="btn pull-right btn-primary" ng-click="save()">
+                <span class="glyphicon glyphicon-save"></span> Save
+            </button>
+
+            <button type="button" class="btn pull-right btn-default" data-dismiss="modal" ng-click="back()">
+                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+            </button>
+
+
     </div>
     <div class="modal-body">
-            <div class="form-group">
-                <label>ID</label>
-                <input type="text" class="form-control" name="id"  ng-model="modelData.id" readonly>
+
+
+        <div class="container-padding">
+            <div class="row container-padding">
+                <div class="container-padding col-sm-2">
+                    <!-- Image -->
+                    <img alt="Alt Image" class="img-responsive img-thumbnail" ng-src="{{imageSrc}}" >
+                    <br>
+                    <file-field class="btn-sm btn-success" ng-model="uploadFile" preview="imageSrc">Select File</file-field>
+
+
+
+                </div>
+                <div class="container-padding col-sm-10">
+                    <div class="row container-padding">
+                        <div class="container-padding col-sm-6">
+                            <input type="hidden" class="form-control" name="id"  ng-model="modelData.id" readonly>
+                            <input type="hidden" class="form-control" name="contactInfo.id"  ng-model="modelData.contactInfo.id" readonly>
+                            <input type="hidden" class="form-control" name="company.id"  ng-model="modelData.company.id" readonly>
+                            <input type="hidden" class="form-control" name="company.contactInfo.id"  ng-model="modelData.company.contactInfo.id" readonly>
+                            <input type="hidden" class="form-control" name="company.shipping.id"  ng-model="modelData.company.contactInfo.shipping.id" readonly>
+                            <div class="row container-padding  ">
+                                <div class="col-md-6 rem-right-pad">
+                                    <!-- Text Input-->
+                                    <div class="form-group">
+                                        <label class="control-label editable-label" for="firstName">First Name</label>
+                                        <input class="form-control input-sm" id="firstName" name="firstName" ng-model="modelData.firstName" ng-minlength=1 ng-maxlength=255 type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 rem-left-pad">
+                                    <!-- Text Input-->
+                                    <div class="form-group">
+                                        <label class="control-label editable-label" for="lastName">Last Name</label>
+                                        <input class="form-control input-sm" id="lastName" name="lastName" ng-model="modelData.lastName" ng-minlength=1 ng-maxlength=255  type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row container-padding  ">
+                                <div class="col-md-6 rem-right-pad">
+                                    <!-- Text Input-->
+                                    <div class="form-group">
+                                        <label class="control-label editable-label" for="jobTitle">Job Title</label>
+                                        <input class="form-control input-sm" id="jobTitle" name="jobTitle" ng-model="modelData.jobTitle" ng-minlength=1 ng-maxlength=255 type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 rem-left-pad">
+                                    <div class="form-group">
+                                        <label>status</label>
+                                        <input type="text" class="form-control  input-sm" name="status" ng-model="modelData.status" ng-minlength=1 ng-maxlength=255  >
+                                    </div>
+                                </div>
+
+                               <!-- <input class="form-control input-sm" id="companyName" name="companyName" ng-model="modelData.company.name" ng-minlength=1 ng-maxlength=255 type="text"> -->
+                            </div>
+                            <!-- Text Input-->
+                            <div class="form-group">
+                                <label class="control-label editable-label" for="companyName">Company
+                                    Name</label>
+
+                                <input type="text" typeahead-on-select="companySelected($item, $model, $label)"
+                                       ng-model="modelData.company.name" id="companyName"
+                                       uib-typeahead="address.name for address in getCompany($viewValue)"
+                                       typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                                       class="form-control">
+                                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                <div ng-show="noResults">
+                                    <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class=" control-label editable-label" for="address">Address</label>
+                                <textarea class="form-control " id="address" name="address" ng-model="modelData.company.contactInfo.shipping.address" ng-minlength=1 ng-maxlength=4098></textarea>
+                            </div>
+                            <div class="row container-padding  ">
+                                <div class="col-md-6 rem-right-pad">
+                                    <div class="form-group">
+                                        <label class="control-label editable-label" for="city">City</label>
+                                        <input class="form-control input-sm" id="city" name="city" ng-model="modelData.company.contactInfo.shipping.city" ng-minlength=1 ng-maxlength=255 type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 rem-left-pad rem-right-pad">
+                                    <div class="form-group">
+                                        <label class="control-label editable-label" for="state">State</label>
+                                        <input class="form-control input-sm" id="state" name="state" ng-model="modelData.company.contactInfo.shipping.state" ng-minlength=1 ng-maxlength=255 type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 rem-left-pad">
+                                    <div class="form-group">
+                                        <label class="control-label editable-label" for="zip">Zip</label>
+                                        <input class="form-control input-sm" id="zip" name="zip" ng-model="modelData.company.contactInfo.shipping.zip" ng-minlength=1 ng-maxlength=255 type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-padding col-sm-6">
+
+                            <label>Phone</label>
+                            <div  class="form-group"  ng-repeat="phone in phones" ng-model="phones" >
+                                <div class="input-group">
+                                    <input ng-model='phones[$index].id' class="form-control" type="hidden" >
+                                    <input ng-model='phones[$index].phone' class="form-control" type="text" >
+                                    <span class="input-group-btn">
+                                        <select ng-model='phones[$index].type' style="width:100px" class="form-control" >
+                                            <option value="Mobile">Mobile</option>
+                                            <option value="Home">Home</option>
+                                            <option value="Office">Office</option>
+                                            <option value="Fax">Fax</option>
+                                        </select>
+                                    </span>
+                                    <span  class="input-group-btn">
+                                         <button ng-click="addPhone()" type="button" ui-sref="index.connectionForm"  class="btn  btn-primary">
+                                             <span class="fa fa-plus-square"></span>
+                                         </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <label>Email</label>
+                            <div  class="form-group" ng-repeat="email in emails" ng-model="emails">
+                                <div class="input-group">
+                                    <input ng-model='emails[$index].id' class="form-control" type="hidden" >
+                                    <input ng-model='emails[$index].email' class="form-control" type="text" >
+                                    <span class="input-group-btn">
+                                        <select ng-model='emails[$index].type' style="width:100px" class="form-control" >
+                                            <option value="Office">Office</option>
+                                            <option value="Home">Home</option>
+                                        </select>
+                                    </span>
+                                    <span  class="input-group-btn">
+                                         <button ng-click="addEmail()" type="button" ui-sref="index.connectionForm"  class="btn  btn-primary">
+                                             <span class="fa fa-plus-square"></span>
+                                         </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div  class="form-group" ng-repeat="url in urls" ng-model="urls">
+                                <label>Url</label>
+                                <div class="input-group">
+                                    <input ng-model='urls[$index].id' class="form-control" type="hidden" >
+                                    <input ng-model='urls[$index].webUrl' class="form-control" type="text" >
+                                    <span class="input-group-btn">
+                                        <select style="width:100px" class="form-control" >
+                                            <option value="Website">Website</option>
+                                            <option value="linkedin">linkedin</option>
+                                            <option value="facebook">facebook</option>
+                                            <option value="twitter">twitter</option>
+                                        </select>
+                                    </span>
+                                    <span  class="input-group-btn">
+                                         <button ng-click="addUrl()"type="button" ui-sref="index.connectionForm"  class="btn  btn-primary">
+                                             <span class="fa fa-plus-square"></span>
+                                         </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="form-group">
-                <label>owner</label>
-                <input type="text" class="form-control" name="owner" ng-model="modelData.owner" ng-minlength=1 ng-maxlength=255  >
+
+            <div class="row container-padding">
+                <div class="container-padding col-sm-12">
+                    <!-- Text Area
+                    <div class="form-group">
+                        <label class=" control-label editable-label" for="note">Notes</label>
+                        <textarea class="form-control " id="note" name="note" ng-model="modelData.note" ng-minlength=1 ng-maxlength=4098></textarea>
+                    </div>      -->
+                </div>
             </div>
-            <div class="form-group">
-                <label>firstName</label>
-                <input type="text" class="form-control" name="firstName" ng-model="modelData.firstName" ng-minlength=1 ng-maxlength=255  >
-            </div>
-            <div class="form-group">
-                <label>lastName</label>
-                <input type="text" class="form-control" name="lastName" ng-model="modelData.lastName" ng-minlength=1 ng-maxlength=255  >
-            </div>
-            <div class="form-group">
-                <label>photoUrl</label>
-                <input type="text" class="form-control" name="photoUrl" ng-model="modelData.photoUrl" ng-minlength=1 ng-maxlength=255  >
-            </div>
-            <div class="form-group">
-                <label>jobTitle</label>
-                <input type="text" class="form-control" name="jobTitle" ng-model="modelData.jobTitle" ng-minlength=1 ng-maxlength=255  >
-            </div>
-            <div class="form-group">
-                <label>status</label>
-                <input type="text" class="form-control" name="status" ng-model="modelData.status" ng-minlength=1 ng-maxlength=255  >
-            </div>
-            <div class="form-group">
-                <label>createdAt</label>
-                <input type="date" class="form-control" name="createdAt" placeholder="yyyy/MM/dd"    ng-model="modelData.createdAt">
-            </div>
-            <div class="form-group">
-                <label>modifiedAt</label>
-                <input type="date" class="form-control" name="modifiedAt" placeholder="yyyy/MM/dd"    ng-model="modelData.modifiedAt">
-            </div>
+        </div>
+
+
+
+
+
+
+
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="back()">
-            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-        </button>
-        <button ng-disabled="form.$invalid" class="btn btn-primary" ng-click="save()">
-            <span class="glyphicon glyphicon-save"></span> Save
-        </button>
+
     </div>
 </form>

@@ -18,6 +18,21 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.ez-vcard</groupId>
+            <artifactId>ez-vcard</artifactId>
+            <version>0.9.10</version>
+        </dependency>
+        <dependency>
             <groupId>com.genX</groupId>
             <artifactId>genX-framework</artifactId>
             <version>5.5-SNAPSHOT</version>

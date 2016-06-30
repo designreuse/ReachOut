@@ -3,6 +3,11 @@
  * Code licensed under the Apache License v2.0.
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
+
+
+
+
+
 .bs-docs-sidebar .nav>li>a {
     border-left: 2px solid transparent;
     padding: 4px 20px;
@@ -49,7 +54,7 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #262c3d;
+    background: #2c3e50;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
