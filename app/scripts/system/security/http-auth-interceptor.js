@@ -44,29 +44,6 @@
          */
         .config(['$httpProvider', function($httpProvider) {
             $httpProvider.defaults.withCredentials = true;
-            $httpProvider.interceptors.push(['$rootScope', '$q', 'httpBuffer', function($rootScope, $q, httpBuffer) {
-                return {
-                    responseError: function(rejection) {
-                        var config = rejection.config || {};
-                        if (!config.ignoreAuthModule) {
-                            switch (rejection.status) {
-                                case 401:
-                                    var deferred = $q.defer();
-                                    var bufferLength = httpBuffer.append(config, deferred);
-                                 //   if (bufferLength === 1)
-                                        $rootScope.$broadcast('event:auth-loginRequired', rejection);
-                                    return deferred.promise;
-                                case 403:
-                                    $rootScope.$broadcast('event:auth-notAuthorized', rejection);
-                                    break;
-                            }
-                        }
-                        // otherwise, default behaviour
-                        return $q.reject(rejection);
-                    }
-                };
-            }]);
-            /*
             var interceptor = ['$rootScope', '$q', 'httpBuffer', function($rootScope, $q, httpBuffer) {
                 function success(response) {
                     return response;
@@ -90,7 +67,7 @@
                 };
 
             }];
-            $httpProvider.interceptors.push(interceptor);  */
+            $httpProvider.responseInterceptors.push(interceptor);
         }]);
 
     /**

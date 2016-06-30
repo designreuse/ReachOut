@@ -24,7 +24,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.*;
-                                                        
+                                                            
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Table(name = "\"Contact\"")
@@ -45,6 +45,7 @@ public class Contact implements CustomDomain<Contact> {
     private Contactinfo contactInfo;
     private String companyName;
     private String note;
+    private String imgSrc;
 
     public Contact() { }
 
@@ -148,7 +149,7 @@ public class Contact implements CustomDomain<Contact> {
         this.contactInfo = contactInfo;
     }
 
-    @Column(name = "\"companyName\"", length = 255)
+    @Column(name = "\"companyName\"", length = 512000)
     public String getCompanyName() {
         return companyName;
     }
@@ -162,6 +163,14 @@ public class Contact implements CustomDomain<Contact> {
     }
     public void setNote(String note){
         this.note = note;
+    }
+
+    @Column(name = "\"imgSrc\"", length = 255)
+    public String getImgSrc() {
+        return imgSrc;
+    }
+    public void setImgSrc(String imgSrc){
+        this.imgSrc = imgSrc;
     }
 
     @Transient

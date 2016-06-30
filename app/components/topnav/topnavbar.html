@@ -10,11 +10,14 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar">
 
-
-        <ul class="nav navbar-nav navbar">
-            <li> <a ui-sref="reachout.task">Tasks</a></li>
-            <li> <a ui-sref="reachout.contact">Contacts</a></li>
-        </ul>
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input  class="form-control" type="text"/>
+            </div>
+            <button class="btn btn-default" type="submit">
+                Search
+            </button>
+        </form>
         <ul class="nav navbar-nav navbar-right">
             <li ng-show="isAdmin()">
                 <a ui-sref="admin.docs.intro">{{account.firstName}}</a>
