@@ -257,7 +257,28 @@ catwalkApp.directive("imageResize", ["$parse", function($parse) {
         };
     }
 ]);
-
+catwalkApp.directive('keyDown',['$document',function($document){
+    return{
+        restrict:'A',
+        scope: {
+            keyDown: '&'
+        },
+        link:function(scope,elem,attrs,ctrl){
+            var elemFocus = false;
+            elem.on('mouseenter',function(){
+                elemFocus = true;
+            });
+            elem.on('mouseleave',function(){
+                elemFocus = false;
+            });
+            $document.bind('keydown',function(e){
+                if(elemFocus){
+                    scope.keyDown({$event:e});
+                }
+            });
+        }
+    };
+}]);
 
 /**
  *

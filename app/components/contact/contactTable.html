@@ -17,14 +17,14 @@
             </div>
         </form>
         <div class="panel panel-default">
-            <table class="table table-hover table-striped">
+            <table class="table table-hover table-striped" arrow-selector>
                 <tr>
                     <th>Name</th>
                     <th>Company</th>
                     <th>Title</th>
                     <!-- <th></th> -->
                 </tr>
-                <tr class="active" ng-keydown="expression" ng-dblclick="update(item.id)" ng-click="displayItem(item.id)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
+                <tr class=""  key-down="keyDownEvent($event)" ng-dblclick="update(item.id)" ng-click="displayItem(item.id,$index)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
                     <td>{{item.firstName}} {{item.lastName}}</td>
                     <td>{{item.company.name}}</td>
                     <td>{{item.jobTitle}}</td>

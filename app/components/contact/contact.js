@@ -10,6 +10,7 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
         $scope.emails = [{email:'',type:'Office'}];
         $scope.urls = [{webUrl:'',type:'Website'}];
         $scope.imageSrc = "";
+        $scope.selected = 0;
 
         $scope.rotateImage=function(){
             var image = new Image();
@@ -26,7 +27,39 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
             ctx.restore();
             $scope.imageSrc = canvas.toDataURL("image/jpeg");
         };
-        $scope.displayItem= function(id){
+        
+        $scope.keyDownEvent =function(event){
+
+            if(event.keyCode == 40 || event.keyCode == 38){
+                var list = $scope.modelList.rows;
+                var idx = $scope.selected;
+
+
+                if(event.keyCode == 40){
+                    if(idx === list.length-1){
+                        idx = 0;
+                    } else{
+                        idx += 1;
+                    }
+
+                }else if(event.keyCode == 38){
+                    if(idx === 0){
+                        idx = list.length-1;
+                    }
+                    else{
+                        idx -= 1;
+                    }
+                }
+
+                var model = $scope.modelList.rows[idx];
+                if(model){
+                    $scope.displayItem(model.id,idx);
+                }
+            }
+        };
+        
+        $scope.displayItem= function(id,index){
+            $scope.selected = index;
             //get screen size
             if(window.innerWidth < 700){
                 location.path('/reachout/contactDetail/' + id);
