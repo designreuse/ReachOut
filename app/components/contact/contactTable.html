@@ -20,13 +20,15 @@
             <table class="table table-hover table-striped">
                 <tr>
                     <th>Name</th>
+                    <th>Company</th>
                     <th>Title</th>
-                    <th></th>
+                    <!-- <th></th> -->
                 </tr>
-                <tr class="active" ng-dblclick="update(item.id)" ng-click="displayItem(item.id)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
-                    <td>{{item.firstName}} {{item.lastName}} {{item.company.name}}</td>
+                <tr class="active" ng-keydown="expression" ng-dblclick="update(item.id)" ng-click="displayItem(item.id)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
+                    <td>{{item.firstName}} {{item.lastName}}</td>
+                    <td>{{item.company.name}}</td>
                     <td>{{item.jobTitle}}</td>
-                    <td><i class="fa fa-remove" ng-click="removeUser(item.id)"></i></td>
+                    <!-- <td><i class="fa fa-remove" ng-click="removeUser(item.id)"></i></td> -->
                 </tr>
             </table>
         </div>

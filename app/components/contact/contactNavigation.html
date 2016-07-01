@@ -1,0 +1,16 @@
+<div ng-include="'components/contact/contactDetail.html'"></div>
+<div class="row" ng-show="modelData">
+    <div class="col-sm-12">
+        <div>
+            <button type="button" class="btn pull-right btn-default" ng-click="update(modelData.id)">
+                <span class="fa fa-edit"></span> Edit
+            </button>
+
+            <button type="button" class="btn pull-right btn-success" ng-click="back()">
+                <span class="fa fa-backward"></span> Back
+            </button>
+
+        </div>
+    </div>
+</div>
+

@@ -119,7 +119,9 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
             $scope.list();
         };
         $scope.save = function(){
-             
+            if(!$scope.modelData){
+                $scope.modelData = {};
+            }
             if(!$scope.modelData['contactInfo']){
                 $scope.modelData['contactInfo'] ={};
             }
@@ -175,7 +177,7 @@ catwalkApp.config(['$stateProvider', '$urlRouterProvider',
         })
         .state('reachout.contactDetail', {
             url: "/contactDetail/:id",
-            templateUrl: "components/contact/contactDetail.html",
+            templateUrl: "components/contact/contactNavigation.html",
             controller: 'ReachoutContactController'
         })
      }
