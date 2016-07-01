@@ -1,6 +1,15 @@
 <div class="row">
     <div class="col-sm-7">
         <h3>Contacts</h3>
+        <input type="file" multiple simple-upload
+               class="filestyle"
+               data-badge="false"
+               upload-function="importCsv"
+               accept=".csv"
+               data-button-name="btn btn-default"
+               data-input="false"
+               data-icon-name="glyphicon glyphicon-inbox"
+               data-button-text="Import Csv" />
 
         <form ng-submit="search()" >
             <div class="input-group">

@@ -279,7 +279,51 @@ catwalkApp.directive('keyDown',['$document',function($document){
         }
     };
 }]);
+catwalkApp.directive('simpleUpload', [function ( ) {
+    return {
+        scope: {
+            uploadFunction: '=',
+            buttonId: '@'
+        },
+        link: function (scope, element, attrs) {
+            // if button id value exists
+            if (scope.buttonId) {
+                jQuery('#' + scope.buttonId).on('click', function () {
+                    // retrieves files from file input
+                    var files = element[0].files;
+                    // will not fire until file(s) are selected
+                    if (files.length == 0) {
+                        console.log('No files detected.');
+                        return false;
+                    }
 
+                    Upload(files);
+                });
+            }
+            else {
+                // original code, trigger upload on change
+                element.on('change', function (evt) {
+                    var files = evt.__files_ || (evt.target && evt.target.files);
+
+                    Upload(files);
+
+                    // removes file(s) from input
+                    jQuery(this).val('');
+                });
+            }
+
+            function Upload(files) {
+
+                var fd = new FormData();
+                angular.forEach(files, function (v, k) {
+                    fd.append('file', files[k]);
+                });
+                scope.uploadFunction(fd);
+
+            }
+        }
+    }
+}]);
 /**
  *
  * Pass all functions into module

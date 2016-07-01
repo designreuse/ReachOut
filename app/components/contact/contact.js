@@ -4,7 +4,7 @@
 catwalkApp.controller('ReachoutContactController', ['$scope','$location','$stateParams','$global.services', 'ReachoutContact', '$http',
     function ($scope,location,$stateParams,$services, service, $http) {
         $scope.name = "Contact";
-        $scope.listParams = {sidx:'firstName',rows:12,page:1,defaultsearchoper:"icn",or:true};
+        $scope.listParams = {sidx:'firstName',rows:500,page:1,defaultsearchoper:"icn",or:true};
         $scope.srchterm = '';
         $scope.phones = [{phone:'',type:'Office'}];
         $scope.emails = [{email:'',type:'Office'}];
@@ -27,7 +27,11 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
             ctx.restore();
             $scope.imageSrc = canvas.toDataURL("image/jpeg");
         };
-        
+        $scope.importCsv = function(fd){
+            service.importCsv(fd,function(ret){
+                $scope.list();
+            });
+        };
         $scope.keyDownEvent =function(event){
 
             if(event.keyCode == 40 || event.keyCode == 38){
