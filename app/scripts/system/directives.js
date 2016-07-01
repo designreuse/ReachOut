@@ -197,6 +197,68 @@ catwalkApp.directive('ngPrism',['$interpolate', function ($interpolate) {
     };
 }]);
 
+catwalkApp.directive('fileField', function() {
+    return {
+        require:'ngModel',
+        restrict: 'E',
+        link: function (scope, element, attrs, ngModel) {
+            //set default bootstrap class
+            if(!attrs.class && !attrs.ngClass){
+                element.addClass('btn');
+            }
+
+            var fileField = element.find('input');
+
+            fileField.bind('change', function(event){
+                scope.$evalAsync(function () {
+                    ngModel.$setViewValue(event.target.files[0]);
+                    if(attrs.preview){
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            scope.$evalAsync(function(){
+                                scope[attrs.preview]=e.target.result;
+                            });
+                        };
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                });
+            });
+            fileField.bind('click',function(e){
+                e.stopPropagation();
+            });
+            element.bind('click',function(e){
+                e.preventDefault();
+                fileField[0].click()
+            });
+        },
+        template:'<button type="button"><ng-transclude></ng-transclude><input type="file" style="display:none"></button>',
+        replace:true,
+        transclude:true
+    };
+});
+ 
+catwalkApp.directive("imageResize", ["$parse", function($parse) {
+        return {
+            link: function(scope, elm, attrs) {
+                var imageWidth = $parse(attrs.imageWidth)(scope);
+                return elm.one("load", function() {
+                    var image =  elm[0];
+                    var imagePercent = (imageWidth/elm[0].width) * 100;
+                    var neededHeight = image.height * imagePercent / 100;
+                    var neededWidth = image.width * imagePercent / 100;
+                    var canvas = document.createElement("canvas");
+                    canvas.width = neededWidth;
+                    canvas.height = neededHeight;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(image, 0, 0, neededWidth, neededHeight);
+                    return elm.attr('src', canvas.toDataURL("image/jpeg"));
+                });
+            }
+        };
+    }
+]);
+
+
 /**
  *
  * Pass all functions into module

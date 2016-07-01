@@ -24,11 +24,10 @@
             <div class="row container-padding">
                 <div class="container-padding col-sm-2">
                     <!-- Image -->
-                    <img alt="Alt Image" class="img-responsive img-thumbnail" ng-src="{{imageSrc}}" >
+                    <img alt="Alt Image" id='myImage' class="img-responsive img-thumbnail" image-resize image-width="200" ng-src="{{imageSrc}}" >
                     <br>
                     <file-field class="btn-sm btn-success" ng-model="uploadFile" preview="imageSrc">Select File</file-field>
-
-
+                     <button class="btn btn-sm btn-warning" ng-click="rotateImage()">Rotate</button>
 
                 </div>
                 <div class="container-padding col-sm-10">

@@ -149,7 +149,7 @@ public class Contact implements CustomDomain<Contact> {
         this.contactInfo = contactInfo;
     }
 
-    @Column(name = "\"companyName\"", length = 512000)
+    @Column(name = "\"companyName\"", length = 255)
     public String getCompanyName() {
         return companyName;
     }
@@ -165,7 +165,7 @@ public class Contact implements CustomDomain<Contact> {
         this.note = note;
     }
 
-    @Column(name = "\"imgSrc\"", length = 255)
+    @Column(name = "\"imgSrc\"", length = 512000)
     public String getImgSrc() {
         return imgSrc;
     }

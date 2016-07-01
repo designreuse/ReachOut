@@ -9,8 +9,32 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
         $scope.phones = [{phone:'',type:'Office'}];
         $scope.emails = [{email:'',type:'Office'}];
         $scope.urls = [{webUrl:'',type:'Website'}];
-        $scope.imageSrc ="";
-        
+        $scope.imageSrc = "";
+
+        $scope.rotateImage=function(){
+            var image = new Image();
+            image.src = $scope.imageSrc;
+            var canvas = document.createElement("canvas");
+            canvas.width = image.height;
+            canvas.height = image.width;
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.save();
+            ctx.translate(canvas.width/2,canvas.height/2);
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.drawImage(image,-image.width/2,-image.height/2);
+            ctx.restore();
+            $scope.imageSrc = canvas.toDataURL("image/jpeg");
+        };
+        $scope.displayItem= function(id){
+            //get screen size
+            if(window.innerWidth < 700){
+                location.path('/reachout/contactDetail/' + id);
+                //$stateParams.go('reachout.contactDetail', {'id':id});
+            }else{
+                $scope.get(id);
+            }
+        };
         $scope.addPhone=function(){
             $scope.phones.push({phone:'',type:'Home'});
         };
@@ -46,6 +70,7 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
                         }
                     });
                 }
+                $scope.imageSrc = "";
                 if(contact.imgSrc){
                     $scope.imageSrc =contact.imgSrc;
                 }
@@ -146,6 +171,11 @@ catwalkApp.config(['$stateProvider', '$urlRouterProvider',
         .state('reachout.contactForm', {
             url: "/contact/:id",
             templateUrl: "components/contact/contactForm.html",
+            controller: 'ReachoutContactController'
+        })
+        .state('reachout.contactDetail', {
+            url: "/contactDetail/:id",
+            templateUrl: "components/contact/contactDetail.html",
             controller: 'ReachoutContactController'
         })
      }
