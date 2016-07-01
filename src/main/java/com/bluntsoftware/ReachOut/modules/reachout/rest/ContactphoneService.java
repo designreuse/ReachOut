@@ -2,6 +2,7 @@ package com.bluntsoftware.ReachOut.modules.reachout.rest;
 
 
 
+import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactinfo;
 import com.genx.framework.jpa.repository.GenericRepository;
 import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactphone;
 import com.bluntsoftware.ReachOut.modules.reachout.repository.ContactphoneRepository;
@@ -18,5 +19,11 @@ import org.springframework.stereotype.Controller;
 
 public class ContactphoneService extends CustomService<Contactphone,Integer, ContactphoneRepository> {
 
-
+    public void addPhone(String number,String type,Contactinfo contactinfo){
+        Contactphone phone = new Contactphone();
+        phone.setContactInfo(contactinfo);
+        phone.setPhone(number);
+        phone.setType(type);
+        repository.saveAndUpdate(phone);
+    }
 }

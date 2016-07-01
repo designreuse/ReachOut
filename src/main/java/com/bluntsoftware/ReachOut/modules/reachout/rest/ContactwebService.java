@@ -2,6 +2,8 @@ package com.bluntsoftware.ReachOut.modules.reachout.rest;
 
 
 
+import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactinfo;
+import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactphone;
 import com.genx.framework.jpa.repository.GenericRepository;
 import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactweb;
 import com.bluntsoftware.ReachOut.modules.reachout.repository.ContactwebRepository;
@@ -18,5 +20,12 @@ import org.springframework.stereotype.Controller;
 
 public class ContactwebService extends CustomService<Contactweb,Integer, ContactwebRepository> {
 
+    public void addWeb(String url,String type,Contactinfo contactinfo){
+        Contactweb web = new Contactweb();
+        web.setContactInfo(contactinfo);
+        web.setWebUrl(url);
+        web.setType(type);
+        repository.saveAndUpdate(web);
+    }
 
 }
