@@ -25,25 +25,23 @@
                 </div>
             </div>
         </form>
-        <table class="table">
 
-            <tr>
-                <th>Name</th>
-                <th>Company</th>
-                <th>Title</th>
-                <!-- <th></th> -->
-            </tr>
+            <ul class="table-head">
+                <li>Name</li>
+                <li>Company</li>
+                <li>Title</li>
+            </ul>
 
-        </table>
+
         <div slim-scroll="350" class="panel panel-default" key-down="keyDownEvent($event)">
             <table class="table table-hover table-striped" >
                 <tbody >
-                    <tr ng-dblclick="update(item.id)" ng-click="displayItem(item.id,$index)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
-                        <td>{{item.firstName}} {{item.lastName}}</td>
-                        <td>{{item.company.name}}</td>
-                        <td>{{item.jobTitle}}</td>
-                        <!-- <td><i class="fa fa-remove" ng-click="remove(item.id)"></i></td> -->
-                    </tr>
+                <tr ng-dblclick="update(item.id)" ng-click="displayItem(item.id,$index)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
+                    <td>{{item.firstName}} {{item.lastName}}</td>
+                    <td>{{item.company.name}}</td>
+                    <td>{{item.jobTitle}}</td>
+                    <!-- <td><i class="fa fa-remove" ng-click="remove(item.id)"></i></td> -->
+                </tr>
                 </tbody>
             </table>
         </div>
