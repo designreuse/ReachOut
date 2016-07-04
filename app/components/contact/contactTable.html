@@ -25,20 +25,29 @@
                 </div>
             </div>
         </form>
-        <div class="panel panel-default">
-            <table class="table table-hover table-striped" arrow-selector>
+
+        <div  set-height style="overflow: auto" class="scroll-body"  class="panel panel-default scroll-body " >
+            <table    class="table table-hover table-striped" >
+                <thead  >
                 <tr>
                     <th>Name</th>
                     <th>Company</th>
                     <th>Title</th>
                     <!-- <th></th> -->
                 </tr>
-                <tr class=""  key-down="keyDownEvent($event)" ng-dblclick="update(item.id)" ng-click="displayItem(item.id,$index)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
-                    <td>{{item.firstName}} {{item.lastName}}</td>
-                    <td>{{item.company.name}}</td>
-                    <td>{{item.jobTitle}}</td>
-                    <!-- <td><i class="fa fa-remove" ng-click="removeUser(item.id)"></i></td> -->
-                </tr>
+                </thead>
+                <div >
+                    <tbody>
+                    <tr class=""  key-down="keyDownEvent($event)" ng-dblclick="update(item.id)" ng-click="displayItem(item.id,$index)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
+                        <td>{{item.firstName}} {{item.lastName}}</td>
+                        <td>{{item.company.name}}</td>
+                        <td>{{item.jobTitle}}</td>
+                        <td><i class="fa fa-remove" ng-click="removeUser(item.id)"></i></td>
+                    </tr>
+                    </tbody>
+                </div>
+
+
             </table>
         </div>
     </div>

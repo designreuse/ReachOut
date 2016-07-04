@@ -100,50 +100,64 @@ public class ContactService extends CustomService<Contact,Integer, ContactReposi
             Map<String,String> rowAsMap = it.next();
 
             Contact contact = new Contact();
+
             if(rowAsMap.containsKey("First Name")){contact.setFirstName(rowAsMap.get("First Name"));}
             if(rowAsMap.containsKey("Last Name")){contact.setLastName(rowAsMap.get("Last Name"));}
-            if(rowAsMap.containsKey("Company")){contact.setCompanyName(rowAsMap.get("Company"));}
             if(rowAsMap.containsKey("Job Title")){contact.setJobTitle(rowAsMap.get("Job Title"));}
+
+            Company company = new Company();
+            contact.setCompany(company);
+            if(rowAsMap.containsKey("Company")){
+                contact.setCompanyName(rowAsMap.get("Company"));
+                company.setName(rowAsMap.get("Company"));
+            }
+
+
             if(rowAsMap.containsKey("Notes")){contact.setNote(rowAsMap.get("Notes"));}
             Contactinfo  contactInfo = new Contactinfo();
-
-
-
+            contact.setContactInfo(contactInfo);
+            contactInfo.setOwner("Alex");
+            contact = repository.saveAndUpdate(contact);
             //Phones
             if(rowAsMap.containsKey("Mobile Phone")){
-                contactphoneService.addPhone(rowAsMap.get("Mobile Phone"),"Mobile",contactInfo);
+                contactphoneService.addPhone(rowAsMap.get("Mobile Phone"),"Mobile",contact.getContactInfo());
             }
             if(rowAsMap.containsKey("Business Phone")){
-                contactphoneService.addPhone(rowAsMap.get("Business Phone"),"Office",contactInfo);
+                contactphoneService.addPhone(rowAsMap.get("Business Phone"),"Office",contact.getContactInfo());
             }
             if(rowAsMap.containsKey("Business Fax")){
-                contactphoneService.addPhone(rowAsMap.get("Business Fax"),"Fax",contactInfo);
+                contactphoneService.addPhone(rowAsMap.get("Business Fax"),"Fax",contact.getContactInfo());
             }
             if(rowAsMap.containsKey("Home Phone")){
-                contactphoneService.addPhone(rowAsMap.get("Home Phone"),"Home",contactInfo);
+                contactphoneService.addPhone(rowAsMap.get("Home Phone"),"Home",contact.getContactInfo());
             }
             //Emails
             if(rowAsMap.containsKey("E-mail Address")){
-                contactemailService.addEmail(rowAsMap.get("E-mail Address"),"Office",contactInfo);
+                contactemailService.addEmail(rowAsMap.get("E-mail Address"),"Office",contact.getContactInfo());
             }
             if(rowAsMap.containsKey("E-mail 2 Address")){
-                contactemailService.addEmail(rowAsMap.get("E-mail 2 Address"),"Other",contactInfo);
+                contactemailService.addEmail(rowAsMap.get("E-mail 2 Address"),"Other",contact.getContactInfo());
             }
             if(rowAsMap.containsKey("E-mail 3 Address")){
-                contactemailService.addEmail(rowAsMap.get("E-mail 3 Address"),"Other",contactInfo);
+                contactemailService.addEmail(rowAsMap.get("E-mail 3 Address"),"Other",contact.getContactInfo());
             }
 
 
 
-            repository.saveAndUpdate(contact);
+
+
         }
 
 
         return "SUCCESS";
     }
 
+    @Override
+    public Object delete(@PathVariable("id") Integer integer) throws Exception {
+        Contact contact = repository.getOne(integer);
 
+        contactinfoService.delete(contact.getContactInfo());
 
-
-
+        return super.delete(integer);
+    }
 }

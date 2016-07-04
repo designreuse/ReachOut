@@ -71,4 +71,13 @@ public class ContactinfoService extends CustomService<Contactinfo,Integer, Conta
 
 
     }
+
+    public void delete(Contactinfo contactInfo) {
+        contactemailService.deleteByContactinfo(contactInfo);
+        contactphoneService.deleteByContactinfo(contactInfo);
+        contactwebService.deleteByContactinfo(contactInfo);
+        addressService.getRepository().delete(contactInfo.getBilling());
+        addressService.getRepository().delete(contactInfo.getShipping());
+        repository.delete(contactInfo);
+    }
 }
