@@ -65,14 +65,14 @@ public class ContactService extends CustomService<Contact,Integer, ContactReposi
     }
     @RequestMapping(value = "/importCsv", method = RequestMethod.GET)
     @ResponseBody
-    public String uploadFile( ){
+    public String importCsv( ){
         return "POST Files to this URL for Upload";
     }
 
     @Transactional(readOnly = false)
     @RequestMapping(value = "/importCsv", method = RequestMethod.POST)
     @ResponseBody
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+    public String importCsv(@RequestParam("file") MultipartFile file) throws Exception {
 
         String filename = file.getOriginalFilename();
         String filenameNoExtension = filename.replaceFirst("[.][^.]+$", "");
@@ -105,13 +105,11 @@ public class ContactService extends CustomService<Contact,Integer, ContactReposi
             if(rowAsMap.containsKey("Last Name")){contact.setLastName(rowAsMap.get("Last Name"));}
             if(rowAsMap.containsKey("Job Title")){contact.setJobTitle(rowAsMap.get("Job Title"));}
 
-            Company company = new Company();
-            contact.setCompany(company);
-            if(rowAsMap.containsKey("Company")){
-                contact.setCompanyName(rowAsMap.get("Company"));
-                company.setName(rowAsMap.get("Company"));
+            Company company = companyService.importCompanyCsv(rowAsMap);
+            if(company != null){
+                contact.setCompanyName(company.getName());
             }
-
+            contact.setCompany(company);
 
             if(rowAsMap.containsKey("Notes")){contact.setNote(rowAsMap.get("Notes"));}
             Contactinfo  contactInfo = new Contactinfo();
@@ -142,10 +140,6 @@ public class ContactService extends CustomService<Contact,Integer, ContactReposi
                 contactemailService.addEmail(rowAsMap.get("E-mail 3 Address"),"Other",contact.getContactInfo());
             }
 
-
-
-
-
         }
 
 
@@ -154,7 +148,7 @@ public class ContactService extends CustomService<Contact,Integer, ContactReposi
 
     @Override
     public Object delete(@PathVariable("id") Integer integer) throws Exception {
-        Contact contact = repository.getOne(integer);
+        Contact contact = repository.findOne(integer);
 
         contactinfoService.delete(contact.getContactInfo());
 

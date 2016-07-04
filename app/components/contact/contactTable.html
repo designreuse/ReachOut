@@ -38,11 +38,11 @@
                 </thead>
                 <div >
                     <tbody>
-                    <tr class=""  key-down="keyDownEvent($event)" ng-dblclick="update(item.id)" ng-click="displayItem(item.id,$index)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
+                    <tr class=""   ng-dblclick="update(item.id)" ng-click="displayItem(item.id,$index)"  id="{{item.id}}" ng-repeat="item in modelList.rows">
                         <td>{{item.firstName}} {{item.lastName}}</td>
                         <td>{{item.company.name}}</td>
                         <td>{{item.jobTitle}}</td>
-                        <td><i class="fa fa-remove" ng-click="removeUser(item.id)"></i></td>
+                        <td><i class="fa fa-remove" ng-click="remove(item.id)"></i></td>
                     </tr>
                     </tbody>
                 </div>

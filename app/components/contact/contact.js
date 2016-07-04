@@ -176,8 +176,9 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
         };
 
         $scope.remove = function(id){
-            service.delete({id: id}, function () {
 
+            service.delete({id: id}, function () {
+                $scope.list();
             });
         };
 

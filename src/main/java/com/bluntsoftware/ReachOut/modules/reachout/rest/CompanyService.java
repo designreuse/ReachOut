@@ -6,6 +6,7 @@ import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactinfo;
 import com.genx.framework.jpa.repository.GenericRepository;
 import com.bluntsoftware.ReachOut.modules.reachout.domain.Company;
 import com.bluntsoftware.ReachOut.modules.reachout.repository.CompanyRepository;
+import com.genx.framework.jpa.repository.support.HqlBuilder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,5 +38,23 @@ public class CompanyService extends CustomService<Company,Integer, CompanyReposi
         }
 
         return company;
+    }
+
+    public Company importCompanyCsv(Map<String, String> rowAsMap) {
+        String companyName = rowAsMap.get("Company") ;
+        if(companyName != null && !companyName.equalsIgnoreCase("")){
+            //Lets find the company by name
+            HqlBuilder hql = new HqlBuilder(Company.class);
+            hql.eq("name",companyName);
+
+            Company company = repository.findOne(hql);
+            if(company == null ){
+                company = new Company();
+                company.setName(companyName);
+                company = repository.saveAndUpdate(company);
+            }
+            return company;
+        }
+        return null;
     }
 }
