@@ -25,6 +25,12 @@
     box-shadow: none;
 }*/
 
+
+
+
+
+
+
 @media (min-width: 968px) {
     [class*='col-'].rem-right-pad {
         padding-right:2px;

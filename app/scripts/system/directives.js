@@ -327,12 +327,13 @@ catwalkApp.directive('simpleUpload', [function ( ) {
 
 
 
-catwalkApp.directive('setHeight', function($window){
+catwalkApp.directive('slimScroll', function($window){
     return{
         link: function(scope, element, attrs){
-            element.css('height', $window.innerHeight - 260 + 'px');
+
+            element.slimScroll({height:$window.innerHeight - attrs.slimScroll + 'px'});
             angular.element($window).bind('resize', function(){
-                element.css('height', $window.innerHeight - 260 + 'px');
+                element.slimScroll({height:$window.innerHeight - attrs.slimScroll + 'px'});
             });
         }
     }
