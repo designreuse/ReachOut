@@ -1,5 +1,6 @@
 package com.bluntsoftware.ReachOut.modules.reachout.repository;
 
+import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactinfo;
 import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactphone;
 import com.genx.framework.jpa.repository.GenericRepository;
 import org.springframework.stereotype.Repository;
@@ -14,5 +15,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 @Qualifier("reachout")
 //@RepositoryRestResource(collectionResourceRel="reachout.Contactphone", path="reachout/Contactphone")
 public interface ContactphoneRepository extends GenericRepository<Contactphone,Integer>  {
+
 
 }

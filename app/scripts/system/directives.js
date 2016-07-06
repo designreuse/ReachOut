@@ -197,6 +197,147 @@ catwalkApp.directive('ngPrism',['$interpolate', function ($interpolate) {
     };
 }]);
 
+catwalkApp.directive('fileField', function() {
+    return {
+        require:'ngModel',
+        restrict: 'E',
+        link: function (scope, element, attrs, ngModel) {
+            //set default bootstrap class
+            if(!attrs.class && !attrs.ngClass){
+                element.addClass('btn');
+            }
+
+            var fileField = element.find('input');
+
+            fileField.bind('change', function(event){
+                scope.$evalAsync(function () {
+                    ngModel.$setViewValue(event.target.files[0]);
+                    if(attrs.preview){
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            scope.$evalAsync(function(){
+                                scope[attrs.preview]=e.target.result;
+                            });
+                        };
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                });
+            });
+            fileField.bind('click',function(e){
+                e.stopPropagation();
+            });
+            element.bind('click',function(e){
+                e.preventDefault();
+                fileField[0].click()
+            });
+        },
+        template:'<button type="button"><ng-transclude></ng-transclude><input type="file" style="display:none"></button>',
+        replace:true,
+        transclude:true
+    };
+});
+ 
+catwalkApp.directive("imageResize", ["$parse", function($parse) {
+        return {
+            link: function(scope, elm, attrs) {
+                var imageWidth = $parse(attrs.imageWidth)(scope);
+                return elm.one("load", function() {
+                    var image =  elm[0];
+                    var imagePercent = (imageWidth/elm[0].width) * 100;
+                    var neededHeight = image.height * imagePercent / 100;
+                    var neededWidth = image.width * imagePercent / 100;
+                    var canvas = document.createElement("canvas");
+                    canvas.width = neededWidth;
+                    canvas.height = neededHeight;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(image, 0, 0, neededWidth, neededHeight);
+                    return elm.attr('src', canvas.toDataURL("image/jpeg"));
+                });
+            }
+        };
+    }
+]);
+catwalkApp.directive('keyDown',['$document',function($document){
+    return{
+        restrict:'A',
+        scope: {
+            keyDown: '&'
+        },
+        link:function(scope,elem,attrs,ctrl){
+            var elemFocus = false;
+            elem.on('mouseenter',function(){
+                elemFocus = true;
+            });
+            elem.on('mouseleave',function(){
+                elemFocus = false;
+            });
+            $document.bind('keydown',function(e){
+                if(elemFocus){
+                    scope.keyDown({$event:e});
+                }
+            });
+        }
+    };
+}]);
+catwalkApp.directive('simpleUpload', [function ( ) {
+    return {
+        scope: {
+            uploadFunction: '=',
+            buttonId: '@'
+        },
+        link: function (scope, element, attrs) {
+            // if button id value exists
+            if (scope.buttonId) {
+                jQuery('#' + scope.buttonId).on('click', function () {
+                    // retrieves files from file input
+                    var files = element[0].files;
+                    // will not fire until file(s) are selected
+                    if (files.length == 0) {
+                        console.log('No files detected.');
+                        return false;
+                    }
+
+                    Upload(files);
+                });
+            }
+            else {
+                // original code, trigger upload on change
+                element.on('change', function (evt) {
+                    var files = evt.__files_ || (evt.target && evt.target.files);
+
+                    Upload(files);
+
+                    // removes file(s) from input
+                    jQuery(this).val('');
+                });
+            }
+
+            function Upload(files) {
+
+                var fd = new FormData();
+                angular.forEach(files, function (v, k) {
+                    fd.append('file', files[k]);
+                });
+                scope.uploadFunction(fd);
+
+            }
+        }
+    }
+}]);
+
+
+
+catwalkApp.directive('slimScroll', function($window){
+    return{
+        link: function(scope, element, attrs){
+
+            element.slimScroll({height:$window.innerHeight - attrs.slimScroll + 'px'});
+            angular.element($window).bind('resize', function(){
+                element.slimScroll({height:$window.innerHeight - attrs.slimScroll + 'px'});
+            });
+        }
+    }
+});
 /**
  *
  * Pass all functions into module

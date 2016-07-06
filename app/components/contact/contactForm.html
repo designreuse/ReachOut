@@ -6,29 +6,33 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="back()">&times;</button>
         <h4 class="modal-title" id="myDeviceLabel">Create or edit a Contact</h4>
-
             <button ng-disabled="form.$invalid" class="btn pull-right btn-primary" ng-click="save()">
                 <span class="glyphicon glyphicon-save"></span> Save
             </button>
-
             <button type="button" class="btn pull-right btn-default" data-dismiss="modal" ng-click="back()">
                 <span class="glyphicon glyphicon-ban-circle"></span> Cancel
             </button>
-
-
     </div>
     <div class="modal-body">
-
+        <input type="file" multiple simple-upload
+               class="filestyle"
+               data-badge="false"
+               upload-function="importCsv"
+               accept=".csv"
+               data-button-name="btn btn-default"
+               data-input="false"
+               data-icon-name="glyphicon glyphicon-inbox"
+               data-button-text="Import Csv" />
 
         <div class="container-padding">
             <div class="row container-padding">
                 <div class="container-padding col-sm-2">
                     <!-- Image -->
-                    <img alt="Alt Image" class="img-responsive img-thumbnail" ng-src="{{imageSrc}}" >
+                    <img ng-show="imageSrc" alt="Alt Image"  class="img-responsive img-thumbnail" image-resize image-width="200" ng-src="{{imageSrc}}" >
+                    <img ng-hide="imageSrc" alt="Alt Image"  class="img-responsive img-thumbnail" image-resize image-width="200" ng-src="img/no_pic.jpg" >
                     <br>
                     <file-field class="btn-sm btn-success" ng-model="uploadFile" preview="imageSrc">Select File</file-field>
-
-
+                     <button class="btn btn-sm btn-warning fa fa-rotate-right" ng-click="rotateImage()"></button>
 
                 </div>
                 <div class="container-padding col-sm-10">
@@ -182,11 +186,11 @@
 
             <div class="row container-padding">
                 <div class="container-padding col-sm-12">
-                    <!-- Text Area
+                    <!-- Text Area -->
                     <div class="form-group">
                         <label class=" control-label editable-label" for="note">Notes</label>
                         <textarea class="form-control " id="note" name="note" ng-model="modelData.note" ng-minlength=1 ng-maxlength=4098></textarea>
-                    </div>      -->
+                    </div>
                 </div>
             </div>
         </div>

@@ -4,13 +4,74 @@
 catwalkApp.controller('ReachoutContactController', ['$scope','$location','$stateParams','$global.services', 'ReachoutContact', '$http',
     function ($scope,location,$stateParams,$services, service, $http) {
         $scope.name = "Contact";
-        $scope.listParams = {sidx:'firstName',rows:12,page:1,defaultsearchoper:"icn",or:true};
+        $scope.listParams = {sidx:'firstName',rows:500,page:1,defaultsearchoper:"icn",or:true};
         $scope.srchterm = '';
         $scope.phones = [{phone:'',type:'Office'}];
         $scope.emails = [{email:'',type:'Office'}];
         $scope.urls = [{webUrl:'',type:'Website'}];
-        $scope.imageSrc ="";
+        $scope.imageSrc = "";
+        $scope.selected = 0;
+
+        $scope.rotateImage=function(){
+            var image = new Image();
+            image.src = $scope.imageSrc;
+            var canvas = document.createElement("canvas");
+            canvas.width = image.height;
+            canvas.height = image.width;
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.save();
+            ctx.translate(canvas.width/2,canvas.height/2);
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.drawImage(image,-image.width/2,-image.height/2);
+            ctx.restore();
+            $scope.imageSrc = canvas.toDataURL("image/jpeg");
+        };
+        $scope.importCsv = function(fd){
+            service.importCsv(fd,function(ret){
+                $scope.list();
+            });
+        };
+        $scope.keyDownEvent =function(event){
+
+            if(event.keyCode == 40 || event.keyCode == 38){
+                var list = $scope.modelList.rows;
+                var idx = $scope.selected;
+
+
+                if(event.keyCode == 40){
+                    if(idx === list.length-1){
+                        idx = 0;
+                    } else{
+                        idx += 1;
+                    }
+
+                }else if(event.keyCode == 38){
+                    if(idx === 0){
+                        idx = list.length-1;
+                    }
+                    else{
+                        idx -= 1;
+                    }
+                }
+
+                var model = $scope.modelList.rows[idx];
+                if(model){
+                    $scope.displayItem(model.id,idx);
+                }
+            }
+        };
         
+        $scope.displayItem= function(id,index){
+            $scope.selected = index;
+            //get screen size
+            if(window.innerWidth < 700){
+                location.path('/reachout/contactDetail/' + id);
+                //$stateParams.go('reachout.contactDetail', {'id':id});
+            }else{
+                $scope.get(id);
+            }
+        };
         $scope.addPhone=function(){
             $scope.phones.push({phone:'',type:'Home'});
         };
@@ -46,6 +107,7 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
                         }
                     });
                 }
+                $scope.imageSrc = "";
                 if(contact.imgSrc){
                     $scope.imageSrc =contact.imgSrc;
                 }
@@ -94,7 +156,9 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
             $scope.list();
         };
         $scope.save = function(){
-             
+            if(!$scope.modelData){
+                $scope.modelData = {};
+            }
             if(!$scope.modelData['contactInfo']){
                 $scope.modelData['contactInfo'] ={};
             }
@@ -112,8 +176,9 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
         };
 
         $scope.remove = function(id){
-            service.delete({id: id}, function () {
 
+            service.delete({id: id}, function () {
+                $scope.list();
             });
         };
 
@@ -146,6 +211,11 @@ catwalkApp.config(['$stateProvider', '$urlRouterProvider',
         .state('reachout.contactForm', {
             url: "/contact/:id",
             templateUrl: "components/contact/contactForm.html",
+            controller: 'ReachoutContactController'
+        })
+        .state('reachout.contactDetail', {
+            url: "/contactDetail/:id",
+            templateUrl: "components/contact/contactNavigation.html",
             controller: 'ReachoutContactController'
         })
      }

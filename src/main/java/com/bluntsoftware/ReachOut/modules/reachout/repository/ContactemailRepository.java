@@ -1,6 +1,7 @@
 package com.bluntsoftware.ReachOut.modules.reachout.repository;
 
 import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactemail;
+import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactinfo;
 import com.genx.framework.jpa.repository.GenericRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
