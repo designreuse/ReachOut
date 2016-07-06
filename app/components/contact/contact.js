@@ -11,7 +11,23 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
         $scope.urls = [{webUrl:'',type:'Website'}];
         $scope.imageSrc = "";
         $scope.selected = 0;
+        $scope.tags = [];
 
+        $scope.loadTags=function(qry){
+            console.log(qry);
+            var queryParams = {filterByFields:{'name':qry},sidx:'name',rows:500,page:1,defaultsearchoper:"icn"};
+            return $services.ReachoutTag.query(queryParams).$promise.then(
+                function(response){
+                    var tags = [];
+                    angular.forEach(response.rows, function(value, key) {
+                        this.push(value.name);
+                    }, tags);
+
+                    console.log(tags);
+                    return tags;
+                }
+            );
+        };
         $scope.rotateImage=function(){
             var image = new Image();
             image.src = $scope.imageSrc;
@@ -106,6 +122,14 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
                             $scope.urls = data.rows;
                         }
                     });
+                    $services.ReachoutContactinfotag.query({filterByFields:{'contactInfo.id':contact.contactInfo.id}},function(data){
+                        if(data && data.totalrecords){
+                            $scope.tags = [];
+                            angular.forEach(data.rows, function(value, key) {
+                                this.push(value.tag.name);
+                            }, $scope.tags);
+                        }
+                    });
                 }
                 $scope.imageSrc = "";
                 if(contact.imgSrc){
@@ -166,6 +190,7 @@ catwalkApp.controller('ReachoutContactController', ['$scope','$location','$state
             $scope.modelData['contactInfo']['emails'] = $scope.emails;
             $scope.modelData['contactInfo']['urls'] = $scope.urls;
             $scope.modelData['imgSrc'] = $scope.imageSrc;
+            $scope.modelData['contactInfo']['tags'] = $scope.tags;
             service.save($scope.modelData,function(){
                   $scope.back();
             });

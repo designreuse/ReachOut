@@ -1,5 +1,8 @@
 package com.bluntsoftware.ReachOut.modules.reachout.rest;
 
+import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactinfo;
+import com.bluntsoftware.ReachOut.modules.reachout.domain.Contactinfotag;
+import com.bluntsoftware.ReachOut.modules.reachout.domain.Tag;
 import com.bluntsoftware.ReachOut.modules.user_manager.domain.ApplicationUser;
 import com.bluntsoftware.ReachOut.security.AccountService;
 import com.bluntsoftware.ReachOut.security.SecurityUtils;
@@ -126,4 +129,6 @@ public abstract class CustomService <T extends Domain,ID extends Serializable, X
 
     public Boolean isUserManaged(){return false;};
     public Boolean isGroupManaged(){return false;};
+
+
 }

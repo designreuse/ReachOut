@@ -32,6 +32,10 @@ public class ContactinfoService extends CustomService<Contactinfo,Integer, Conta
     ContactemailService contactemailService;
     @Autowired
     ContactwebService contactwebService;
+    @Autowired
+    ContactinfotagService contactinfotagService;
+    @Autowired
+    TagService tagService;
     @Override
     public Contactinfo saveUpdate(HttpServletRequest request, @RequestBody Map<String, Object> object) throws Exception {
 
@@ -67,9 +71,17 @@ public class ContactinfoService extends CustomService<Contactinfo,Integer, Conta
                 cweb.setContactInfo(contactInfo);
             }
         }
+        if(object.containsKey("tags")){
+            List<Map<String, Object>> tags = (List<Map<String, Object>>)object.get("tags");
+
+            contactinfotagService.removeTags(contactInfo);
+
+            for(Map<String, Object> tag:tags){
+                Tag dtag = tagService.getOrCreateTag((String)tag.get("text"));
+                Contactinfotag infoTag = contactinfotagService.getOrCreate(contactInfo,dtag);
+            }
+        }
         return contactInfo;
-
-
     }
 
     public void delete(Contactinfo contactInfo) {

@@ -12,6 +12,7 @@ var catwalkApp  = angular.module('catwalk', [
     'ngResource',                   // Ajax Server Calls
     'ngCookies',                    // Security Tokens
     'http-auth-interceptor',        // Security
-    'pascalprecht.translate'        // Different Languages
+    'pascalprecht.translate',        // Different Languages
+    'ngTagsInput'
 ]);
 var base_url = 'http://192.168.1.163:8080/reachout/'; //rest/catwalk/''../${projectname}/ '../ReachOut/'
