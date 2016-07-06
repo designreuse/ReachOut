@@ -7,6 +7,8 @@ catwalkApp.service('$global.services', [
     'ReachoutContactinfo',
     'ReachoutContactweb',
     'ReachoutTask',
+    'ReachoutTag',
+    'ReachoutContactinfotag',
     'UserManagerApplicationAuthority',
     'UserManagerApplicationPersistentToken',
     'UserManagerApplicationUser',
@@ -23,6 +25,8 @@ function(
     ReachoutContactinfo,
     ReachoutContactweb,
     ReachoutTask,
+    ReachoutTag,
+    ReachoutContactinfotag,
     UserManagerApplicationAuthority,
     UserManagerApplicationPersistentToken,
     UserManagerApplicationUser,
@@ -39,6 +43,8 @@ function(
             this.ReachoutContactinfo = ReachoutContactinfo;
             this.ReachoutContactweb = ReachoutContactweb;
             this.ReachoutTask = ReachoutTask;
+            this.ReachoutTag = ReachoutTag;
+            this.ReachoutContactinfotag = ReachoutContactinfotag;
             this.UserManagerApplicationAuthority = UserManagerApplicationAuthority;
             this.UserManagerApplicationPersistentToken = UserManagerApplicationPersistentToken;
             this.UserManagerApplicationUser = UserManagerApplicationUser;
