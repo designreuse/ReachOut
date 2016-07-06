@@ -31,13 +31,18 @@ public class CompanyService extends CustomService<Company,Integer, CompanyReposi
     public Company saveUpdate(HttpServletRequest request, @RequestBody Map<String, Object> object) throws Exception {
 
         Company company = super.saveUpdate(request, object);
-        if(object.containsKey("contactInfo")){
+        if(object.containsKey("contactInfo") && company != null){
             Map<String, Object> contactInfo = (Map<String, Object>)object.get("contactInfo");
             Contactinfo contactinfo =  contactinfoService.saveUpdate(null,contactInfo);
             company.setContactInfo(contactinfo);
         }
 
         return company;
+    }
+
+    @Override
+    public Boolean isGroupManaged() {
+        return true;
     }
 
     public Company importCompanyCsv(Map<String, String> rowAsMap) {

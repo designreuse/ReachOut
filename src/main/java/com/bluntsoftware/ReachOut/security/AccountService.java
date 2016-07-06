@@ -136,7 +136,7 @@ public class AccountService {
         return userRepository.findOne(builder);
     }
 
-    List<String> getUserRoles(ApplicationUser user){
+    public List<String> getUserRoles(ApplicationUser user){
         List<String> authorities = new ArrayList<String>();
         HqlBuilder builder = new HqlBuilder(ApplicationUserAuthority.class).eq("appuser",user);
         List<ApplicationUserAuthority> userAuthorities = userAuthorityRepository.findAll(builder);

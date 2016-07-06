@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller("reachoutContactService")
@@ -145,6 +146,23 @@ public class ContactService extends CustomService<Contact,Integer, ContactReposi
 
         return "SUCCESS";
     }
+
+    @Override
+    public Boolean isUserManaged() {
+        return true;
+    }
+
+    @Transactional(readOnly = false)
+    @RequestMapping(value = "/deleteAll", method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public Object deleteAll() throws Exception {
+        List<Contact> contacts = repository.findAll();
+        for(Contact contact:contacts){
+          delete(contact.getId());
+        }
+        return contacts;
+    }
+
 
     @Override
     public Object delete(@PathVariable("id") Integer integer) throws Exception {
